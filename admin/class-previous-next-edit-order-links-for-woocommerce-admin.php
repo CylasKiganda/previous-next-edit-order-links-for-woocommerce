@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       https://fmh
- * @since      1.0.0
+ * @since      1.0.1
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
  * @subpackage Previous_Next_Edit_Order_Links_For_Woocommerce/admin
@@ -118,12 +118,15 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
      $prev = 0;
      $next = 0;
      for($i=0;$i<=count($orders_belo);$i++){
-         if($orders_belo[$i] == $post->ID){
-             $cur = $i;
-             $prev = $cur - 1;
-             $next = $cur + 1;
-             break;
-         }
+		if($post){
+			if($orders_belo[$i] == $post->ID){
+				$cur = $i;
+				$prev = $cur - 1;
+				$next = $cur + 1;
+				break;
+			}
+		}
+         
      }
 
     //Filling the Output array---------     
