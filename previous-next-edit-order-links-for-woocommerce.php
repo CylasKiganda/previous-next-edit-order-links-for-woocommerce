@@ -30,18 +30,18 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$acrw_active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+$apnfw_active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
 if ( is_multisite() ){
-	$acrw_active_plugins = array_merge( $acrw_active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+	$apnfw_active_plugins = array_merge( $apnfw_active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
 
 }
 	
-$acrw_required_plugins = array(
+$apnfw_required_plugins = array(
   "woocommerce/woocommerce.php"
 );
 
-foreach ($acrw_required_plugins as $rp) {
-    if ( ! in_array( $rp, $acrw_active_plugins ) ) {
+foreach ($apnfw_required_plugins as $rp) {
+    if ( ! in_array( $rp, $apnfw_active_plugins ) ) {
         return;
     }
 }
