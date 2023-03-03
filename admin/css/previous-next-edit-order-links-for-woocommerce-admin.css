@@ -8,12 +8,54 @@
     justify-content: space-between;
     margin-bottom: 30px;
 }
- 
+.belo_prev_next {
+    width: 100%; 
+}
+
+.prev_buttn {
+    float: left !important;
+    color: #fff !important;
+    background: linear-gradient(0deg, rgb(36 66 188) 0%, rgb(0 153 255) 100%) !important;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgb(255 255 255 / 50%), 7px 7px 20px 0px rgb(0 0 0 / 10%), 4px 4px 5px 0px rgb(0 0 0 / 10%);
+    outline: none;
+}
+.prev_buttn:hover, .next_buttn:hover{
+    background: linear-gradient(175deg, rgb(36 66 188) 0%, rgb(0 153 255) 100%) !important;
+}
+
+.next_buttn{
+    float: right !important;
+    color: #fff !important;
+    background: linear-gradient(0deg, rgb(36 66 188) 0%, rgb(0 153 255) 100%) !important;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgb(255 255 255 / 50%), 7px 7px 20px 0px rgb(0 0 0 / 10%), 4px 4px 5px 0px rgb(0 0 0 / 10%);
+    outline: none;
+}
 .belo_link_buttons {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     color: white !important;
+    min-width: 120px !important;
 }
 
 .belo_link_buttons:focus {

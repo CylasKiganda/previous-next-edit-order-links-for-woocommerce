@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://fmh
+ * @link       https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
  * @since      1.0.0
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
@@ -19,7 +19,7 @@
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
  * @subpackage Previous_Next_Edit_Order_Links_For_Woocommerce/includes
- * @author     Belo <belo@fmh.dev>
+ * @author     Belo <belocodes@gmail.com>
  */
 class Previous_Next_Edit_Order_Links_For_Woocommerce_Loader {
 

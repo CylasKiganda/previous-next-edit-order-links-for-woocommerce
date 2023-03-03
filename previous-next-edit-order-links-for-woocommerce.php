@@ -8,13 +8,13 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://fmh
+ * @link              https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
  * @since             1.0.0
  * @package           Previous_Next_Edit_Order_Links_For_Woocommerce
  *
  * @wordpress-plugin
- * Plugin Name:       Admin Prev/Next Order Edit Links for Woocommerce
- * Plugin URI:        https://dev.dev
+ * Plugin Name:       Admin Previous and Next Order Edit Links for Woocommerce
+ * Plugin URI:        https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
  * Description:       This plugin enables you to quickly access and edit the next and previous orders. It saves times while processing orders in a sequence which boosts productivity.
   * Version:          1.0.1
  * Author:            Belo 
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PREVIOUS_NEXT_EDIT_ORDER_LINKS_FOR_WOOCOMMERCE_VERSION', '1.0.5' );
+define( 'PREVIOUS_NEXT_EDIT_ORDER_LINKS_FOR_WOOCOMMERCE_VERSION', '1.0.10' );
 
 /**
  * The code that runs during plugin activation.

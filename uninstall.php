@@ -17,9 +17,8 @@
  * general skeleton and outline for how the file should work.
  *
  * For more information, see the following discussion:
- * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       https://fmh
+ * @link       https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
  * @since      1.0.0
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
