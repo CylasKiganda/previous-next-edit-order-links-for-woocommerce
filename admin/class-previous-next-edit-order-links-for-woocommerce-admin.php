@@ -105,7 +105,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
      
      $screen    = get_current_screen();
      $screen_id = isset( $screen, $screen->id ) ? $screen->id : '';
-    
+     if ( $screen_id == 'shop_order' ) {
      //Import the orders' data---------
      $query = new WC_Order_Query( array( 
          'limit' => -1,
@@ -142,8 +142,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
      }
      
      //Enqueuing the Output JS scripts---------
-     if ( $screen_id == 'shop_order' ) {
-
+    
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/previous-next-edit-order-links-for-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
  	    wp_localize_script($this->plugin_name, 'prev_next_script_vars', array(
 			"prev" => $final_prev_next_output["prev"],
