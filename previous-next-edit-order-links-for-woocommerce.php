@@ -16,7 +16,7 @@
  * Plugin Name:       Admin Previous and Next Order Edit Links for Woocommerce
  * Plugin URI:        https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
  * Description:       This plugin enables you to quickly access and edit the next and previous orders. It saves times while processing orders in a sequence which boosts productivity.
-  * Version:          1.0.1
+  * Version:          1.0.0
  * Author:            Belo 
  * Author URI:        https://profiles.wordpress.org/cylas/
  * License:           GPL-2.0+
