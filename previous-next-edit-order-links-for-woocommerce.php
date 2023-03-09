@@ -51,7 +51,7 @@ foreach ($apnfw_required_plugins as $rp) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PREVIOUS_NEXT_EDIT_ORDER_LINKS_FOR_WOOCOMMERCE_VERSION', '1.0.10' );
+define( 'PREVIOUS_NEXT_EDIT_ORDER_LINKS_FOR_WOOCOMMERCE_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -87,7 +87,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-previous-next-edit-order-l
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.1
+ * @since    1.0.0
  */
 function run_previous_next_edit_order_links_for_woocommerce() {
 
