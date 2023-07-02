@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
- * @since      1.0.0
+ * @since      1.0.1
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
  * @subpackage Previous_Next_Edit_Order_Links_For_Woocommerce/admin
@@ -25,7 +25,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +43,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -57,7 +57,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 */
 	public function enqueue_styles() {
 
@@ -80,7 +80,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 */
 	public function enqueue_scripts() {
 
@@ -106,52 +106,56 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
      $screen    = get_current_screen();
      $screen_id = isset( $screen, $screen->id ) ? $screen->id : '';
      if ( $screen_id == 'shop_order' ) {
-     //Import the orders' data---------
-     $query = new WC_Order_Query( array( 
-         'limit' => -1,
-         'orderby' => 'date',
-         'order' => 'DESC',
-         'return' => 'ids',
-     ) );
-     $orders_belo = $query->get_orders();
-     $cur = 0;
-     $prev = 0;
-     $next = 0;
-     for($i=0;$i<=count($orders_belo);$i++){
-		if($post){
-			if($orders_belo[$i] == $post->ID){
-				$cur = $i;
-				$prev = $cur - 1;
-				$next = $cur + 1;
-				break;
-			}
-		}
-         
-     }
+       
+	 global $post, $wpdb, $theorder;
 
-    //Filling the Output array---------     
-     if($prev >= 0 ){
-        if(!empty($orders_belo[$prev])){
-            $final_prev_next_output["prev"] = admin_url( 'post.php?post='.$orders_belo[$prev].'&action=edit' ); 
-        }
-     }
-     if($next > 0 ){
-        if(!empty($orders_belo[$next])){
-            $final_prev_next_output["next"] = admin_url( 'post.php?post='.$orders_belo[$next].'&action=edit' ); 
-        }
-     }
-     
-     //Enqueuing the Output JS scripts---------
-    
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/previous-next-edit-order-links-for-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
- 	    wp_localize_script($this->plugin_name, 'prev_next_script_vars', array(
-			"prev" => $final_prev_next_output["prev"],
-            "prev_text" => __('Previous Order','belo_prev_next_domain'),
-            "next" => $final_prev_next_output["next"],
-            "next_text" => __('Next Order','belo_prev_next_domain')
-			)
-		);
-	}
+		if ( ! is_object( $theorder ) ) {
+			 $theorder = wc_get_order( $post->ID );
+		}
+
+		$order_type_object = get_post_type_object( $post->post_type );
+
+		$order_navigation = $wpdb->get_row( $wpdb->prepare( "
+			SELECT
+				(SELECT ID FROM {$wpdb->prefix}posts
+				WHERE ID < %d
+				AND post_type = '%s'
+				AND post_status <> 'trash'
+				ORDER BY ID DESC LIMIT 1 )
+				AS prev_order_id,
+				(SELECT ID FROM {$wpdb->prefix}posts
+				WHERE ID > %d
+				AND post_type = '%s'
+				AND post_status <> 'trash'
+				ORDER BY ID ASC LIMIT 1 )
+				AS next_order_id
+		", $post->ID, $post->post_type, $post->ID, $post->post_type ), ARRAY_A );
+		
+	//Filling the Output array---------   
+	  if ( array_filter( $order_navigation ) ) : 
+		 
+       endif; 
+
+ 
+if(!empty($order_navigation[ 'prev_order_id' ])){
+$final_prev_next_output["prev"] = admin_url( 'post.php?post='.$order_navigation[ 'prev_order_id' ].'&action=edit' );
+} 
+if(!empty($order_navigation[ 'next_order_id' ])){
+$final_prev_next_output["next"] = admin_url( 'post.php?post='.$order_navigation[ 'next_order_id' ].'&action=edit' );
+}
+ 
+//Enqueuing the Output JS scripts---------
+
+wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) .
+'js/previous-next-edit-order-links-for-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
+wp_localize_script($this->plugin_name, 'prev_next_script_vars', array(
+"prev" => $final_prev_next_output["prev"],
+"prev_text" => __('Previous Order','belo_prev_next_domain'),
+"next" => $final_prev_next_output["next"],
+"next_text" => __('Next Order','belo_prev_next_domain')
+)
+);
+}
 }
 
 }}

@@ -19,7 +19,7 @@
  * For more information, see the following discussion:
  *
  * @link       https://github.com/CylasKiganda/previous-next-edit-order-links-for-woocommerce
- * @since      1.0.0
+ * @since      1.0.1
  *
  * @package    Previous_Next_Edit_Order_Links_For_Woocommerce
  */
