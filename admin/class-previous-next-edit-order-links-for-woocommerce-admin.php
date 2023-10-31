@@ -57,7 +57,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.1
+	 * @since    1.0.2
 	 */
 	public function enqueue_styles() {
 
@@ -80,7 +80,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.1
+	 * @since    1.0.2
 	 */
 	public function enqueue_scripts() {
 
