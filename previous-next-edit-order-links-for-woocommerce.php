@@ -88,7 +88,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-previous-next-edit-order-l
  * not affect the page life cycle.
  *
  * @since    1.0.1
- */
+ */  
 function run_previous_next_edit_order_links_for_woocommerce() {
 
 	$plugin = new Previous_Next_Edit_Order_Links_For_Woocommerce();

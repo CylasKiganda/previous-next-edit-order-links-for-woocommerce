@@ -2,9 +2,9 @@
 
 Contributors:      cylas
 Requires at least: 5.2 or higher
-Tested up to:      6.2
+Tested up to:      6.4
 Requires PHP:      5.6
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 Donate link:       https://www.buymeacoffee.com/BELOCODES
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -74,3 +74,5 @@ Initial release
 = 1.0.1 =
 Bug Fixes plus minor upgrades
 
+= 1.0.2 =
+Woocommerce HPOS integration, syncing wordpress' default button style

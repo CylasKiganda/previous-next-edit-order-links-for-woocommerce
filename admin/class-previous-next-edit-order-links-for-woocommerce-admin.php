@@ -73,7 +73,7 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/previous-next-edit-order-links-for-woocommerce-admin.css', array(), $this->version, 'all' );
+		 wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/previous-next-edit-order-links-for-woocommerce-admin.css', array(), '1.0.21', 'all' );
 
 	}
 
@@ -99,22 +99,45 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
   //Data initialization---------
   $screen_id = false;
   $final_prev_next_output = array("prev"=>0,"next"=>0);
-  global $post;
-
+  global $post; 
  if ( function_exists( 'get_current_screen' ) ) {
-     
+	
      $screen    = get_current_screen();
+	  
      $screen_id = isset( $screen, $screen->id ) ? $screen->id : '';
-     if ( $screen_id == 'shop_order' ) {
-       
+	 
+     
+	 if ( $screen_id == 'woocommerce_page_wc-orders' 
+	 && get_option( 'woocommerce_custom_orders_table_enabled' ) == "yes"
+	 && $_GET['action'] == 'edit'
+	 ) 
+	  {	
 	 global $post, $wpdb, $theorder;
+		  
+			$order_navigation = $wpdb->get_row( $wpdb->prepare( "
+			SELECT
+				(SELECT ID FROM {$wpdb->prefix}wc_orders
+				WHERE id < %d
+				AND type = '%s'
+				AND status <> 'trash'
+				ORDER BY ID DESC LIMIT 1 )
+				AS prev_order_id,
+				(SELECT ID FROM {$wpdb->prefix}wc_orders
+				WHERE id > %d
+				AND type = '%s'
+				AND status <> 'trash'
+				ORDER BY ID ASC LIMIT 1 )
+				AS next_order_id
+		", $theorder->get_id(), 'shop_order', $theorder->ID, 'shop_order' ), ARRAY_A ); 
+	}
+	else if( $screen_id == 'shop_order' 
+	&& get_option( 'woocommerce_custom_orders_table_enabled' ) == "no"){
+		global $post, $wpdb, $theorder;
 
 		if ( ! is_object( $theorder ) ) {
 			 $theorder = wc_get_order( $post->ID );
-		}
-
-		$order_type_object = get_post_type_object( $post->post_type );
-
+		} 
+		 
 		$order_navigation = $wpdb->get_row( $wpdb->prepare( "
 			SELECT
 				(SELECT ID FROM {$wpdb->prefix}posts
@@ -130,32 +153,34 @@ class Previous_Next_Edit_Order_Links_For_Woocommerce_Admin {
 				ORDER BY ID ASC LIMIT 1 )
 				AS next_order_id
 		", $post->ID, $post->post_type, $post->ID, $post->post_type ), ARRAY_A );
+
+	}
+			
+		 
+		
+		
+		
 		
 	//Filling the Output array---------   
-	  if ( array_filter( $order_navigation ) ) : 
-		 
-       endif; 
-
+	   
+		if(!empty($order_navigation[ 'prev_order_id' ])){
+		$final_prev_next_output["prev"] = admin_url( 'post.php?post='.$order_navigation[ 'prev_order_id' ].'&action=edit' );
+		} 
+		if(!empty($order_navigation[ 'next_order_id' ])){
+		$final_prev_next_output["next"] = admin_url( 'post.php?post='.$order_navigation[ 'next_order_id' ].'&action=edit' );
+		}
  
-if(!empty($order_navigation[ 'prev_order_id' ])){
-$final_prev_next_output["prev"] = admin_url( 'post.php?post='.$order_navigation[ 'prev_order_id' ].'&action=edit' );
-} 
-if(!empty($order_navigation[ 'next_order_id' ])){
-$final_prev_next_output["next"] = admin_url( 'post.php?post='.$order_navigation[ 'next_order_id' ].'&action=edit' );
-}
- 
-//Enqueuing the Output JS scripts---------
+		//Enqueuing the Output JS scripts---------
 
-wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) .
-'js/previous-next-edit-order-links-for-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
-wp_localize_script($this->plugin_name, 'prev_next_script_vars', array(
-"prev" => $final_prev_next_output["prev"],
-"prev_text" => __('Previous Order','belo_prev_next_domain'),
-"next" => $final_prev_next_output["next"],
-"next_text" => __('Next Order','belo_prev_next_domain')
-)
-);
-}
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) .
+		'js/previous-next-edit-order-links-for-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script($this->plugin_name, 'prev_next_script_vars', array(
+		"prev" => $final_prev_next_output["prev"],
+		"prev_text" => __('Previous Order','belo_prev_next_domain'),
+		"next" => $final_prev_next_output["next"],
+		"next_text" => __('Next Order','belo_prev_next_domain')
+		)
+		); 
 }
 
 }}
